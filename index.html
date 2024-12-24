@@ -14,7 +14,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
             text-align: center;
             flex-direction: column;
         }
@@ -30,13 +30,13 @@
 
         /* 图片样式 */
         img {
-            width: 180px;
+            width: 250px; /* 调整图片的大小 */
             height: auto;
             display: block;
             margin: 20px auto;
         }
 
-        /* 诗句样式 */
+        /* 诗句容器样式 */
         .poem {
             margin-top: 30px;
             font-size: 1.8em;
@@ -54,6 +54,8 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
             font-family: 'Times New Roman', 'serif';
             letter-spacing: 0.5px;
+            overflow-y: auto; /* 启用垂直滚动 */
+            max-height: 400px; /* 限制诗句最大显示高度 */
         }
 
         /* 按钮样式 */
@@ -75,9 +77,10 @@
             background-color: #0056b3;
         }
 
-         .content {
-            height: 100vh; /* 设置页面的高度 */
-            overflow-y: scroll; /* 启用竖向滚动条 */
+        /* 使得页面可滚动 */
+        .content {
+            height: 100%; /* 设置页面的高度 */
+            overflow-y: auto; /* 启用竖向滚动条 */
             padding-bottom: 100px; /* 防止滚动条挡住内容 */
         }
     </style>
@@ -103,41 +106,28 @@
 
             `Beneath the sky of winter's glow,\nThe world is wrapped in softest snow.\nThe stars above in silence gleam,\nA distant hymn, a whispered dream.\n\nThe trees, like shadows, softly sway,\nTheir branches dressed in frost's array.\nEach flake that falls is heaven's art,\nA frozen kiss, a beating heart.\n\nThe hearth is warm with crackling light,\nIts amber glow, a tender sight.\nThe scent of pine and cedar sweet,\nA melody beneath our feet.\n\nThe bells resound with joyful sound,\nTheir echoes swirling all around.\nA lullaby that fills the air,\nA song of love beyond compare.\n\nMay peace descend like falling snow,\nAnd all your dreams in silence grow.\nFor Christmas brings a sacred song—\nA gift of joy to all along.\n\nMerry Christmas, from heart to heart,\nA time for love to light the dark.`,
 
-            `In quiet hours, the world stands still,\nAs snowflakes fall, the night grows chill.\nThe moonlight paints a silver hue,\nWhile starlight whispers soft and true.\n\nThe trees are dressed in crystal lace,\nTheir branches swaying with gentle grace.\nEach flake that tumbles from the sky,\nA fleeting wish, a silent sigh.\n\nThe warmth of fireside glow surrounds,\nA tender light that softly bounds.\nThe scent of pine and cinnamon,\nA gift of love, of joy begun.\n\nThe carols echo through the night,\nTheir voices soaring, soft and bright.\nA symphony of joy and cheer,\nA melody that draws us near.\n\nMay peace and love within you grow,\nLike winter's glow, soft and slow.\nFor Christmas brings a magic true—\nA gift of grace, from me to you.`,
-
-            `Upon this eve, the stars ignite,\nA blanket of the softest light.\nThe world below, in quiet rest,\nIs kissed by snowflakes, heaven-blessed.\n\nThe trees, like guardians, stand tall,\nTheir branches draped in crystal thrall.\nEach flake that falls, a story told,\nA whisper warm, a touch of gold.\n\nThe hearth is burning, soft and bright,\nA beacon through the silent night.\nThe scent of pine, the taste of cheer,\nThe magic of this time is near.\n\nMay love surround you, pure and true,\nMay peace and joy in all you do.\nFor Christmas brings, with gentle grace,\nA gift of light, a sweet embrace.`
+            `In quiet hours, the world stands still,\nAs snowflakes fall, the night grows chill.\nThe moonlight paints a silver hue,\nWhile starlight whispers soft and true.\n\nThe trees are dressed in crystal lace,\nTheir branches swaying with gentle grace.\nEach flake that tumbles from the sky,\nA fleeting wish, a silent sigh.\n\nThe warmth of fireside glow surrounds,\nA tender light that softly bounds.\nThe scent of pine and cinnamon,\nA gift of love, of joy begun.\n\nThe carols echo through the night,\nTheir voices soaring, soft and bright.\nA symphony of joy and cheer,\nA melody that draws us near.\n\nMay peace and love within you grow,\nLike winter's glow, soft and slow.\nFor Christmas brings a magic true—\nA gift of grace, from me to you.`
         ];
 
-        // 已显示过的诗句索引
-        let displayedPoems = [];
+        const poemContainer = document.getElementById("poem");
+        const newPoemBtn = document.getElementById("newPoemBtn");
 
-        // 获取随机诗句
+        function displayPoem(poem) {
+            poemContainer.innerText = poem;
+        }
+
         function getRandomPoem() {
-            if (displayedPoems.length === poems.length) {
-                // 如果所有诗句都已经展示过，清空已显示列表并重新开始
-                displayedPoems = [];
-            }
-
-            let randomIndex;
-            do {
-                randomIndex = Math.floor(Math.random() * poems.length);
-            } while (displayedPoems.includes(randomIndex));
-
-            // 记录显示的诗句索引
-            displayedPoems.push(randomIndex);
+            const randomIndex = Math.floor(Math.random() * poems.length);
             return poems[randomIndex];
         }
 
-        // 初始化显示诗句
-        function displayPoem() {
-            document.getElementById('poem').textContent = getRandomPoem();
-        }
+        // 初始显示一首诗
+        displayPoem(getRandomPoem());
 
-        // 点击“再来一首”按钮时刷新诗句
-        document.getElementById('newPoemBtn').addEventListener('click', displayPoem);
-
-        // 页面加载时显示一首诗句
-        displayPoem();
+        // 点击按钮切换诗句
+        newPoemBtn.addEventListener("click", () => {
+            displayPoem(getRandomPoem());
+        });
     </script>
 </body>
 </html>
