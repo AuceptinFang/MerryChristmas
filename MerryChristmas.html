@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas</title>
+    <style>
+        /* 设置全局字体和背景 */
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #f0f8ff;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 标题样式 */
+        h1 {
+            font-family: 'Palatino', 'serif';
+            font-size: 2.5em;
+            color: #1e3d58;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        /* 图片样式 */
+        img {
+            width: 180px;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        /* 诗句样式 */
+        .poem {
+            margin-top: 30px;
+            font-size: 1.8em;
+            line-height: 1.8;
+            color: #2c3e50;
+            white-space: pre-wrap;
+            font-style: italic;
+            text-align: center;
+            max-width: 90%; /* 限制诗句最大宽度 */
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: 'Times New Roman', 'serif';
+            letter-spacing: 0.5px;
+        }
+
+        /* 按钮样式 */
+        button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Merry Christmas</h1>
+    <img src="https://via.placeholder.com/180x180.png?text=Christmas+Tree" alt="Christmas Tree">
+    <div class="poem" id="poem"></div>
+    <button id="newPoemBtn">再来一首</button>
+
+    <script>
+        // 诗句数组
+        const poems = [
+            `Merry Christmas\nIn quiet night, beneath the sky,\nThe stars like silver lanterns fly.\nA gentle breeze through branches weaves,\nWhile snowflakes kiss the sleeping leaves.\n\nThe world is wrapped in purest white,\nAs moonlight dances, soft and bright.\nEach crystal flake, a story told,\nA whispered secret, pure as gold.\n\nThe fireside flickers, warm and low,\nIts golden light a steady glow.\nThe scent of pine and cinnamon,\nA melody that lingers on.\n\nThe bells in distance softly ring,\nTheir echo through the night takes wing.\nA lullaby of peace and cheer,\nThat draws the hearts of all so near.\n\nMay love like rivers gently flow,\nAnd hearts be wrapped in winter’s glow.\nFor Christmas brings a sacred grace—\nA gift of joy, a soft embrace.`,
+
+            `Upon the night, a blanket spread,\nOf silver stars and whispers fed.\nThe moonlight paints the earth below,\nA canvas soft with winter's glow.\n\nThe trees, like sentinels, stand tall,\nTheir branches draped in crystal shawl.\nEach flake that falls, a work of art,\nA silent prayer from nature’s heart.\n\nThe candles flicker, warm and bright,\nCasting a glow in the still of night.\nTheir light reflects in eyes aglow,\nAs love and peace begin to grow.\n\nThe song of carols fills the air,\nA melody beyond compare.\nIt drifts like petals on the breeze,\nA symphony of quiet ease.\n\nMay joy surround you, pure and deep,\nAnd dreams like snowflakes gently sleep.\nFor Christmas holds a magic true—\nA timeless gift from me to you.`,
+
+            `Upon this eve, the stars align,\nA sacred glow, a light divine.\nThe world adorned in white embrace,\nA tranquil hush, a timeless grace.\n\nThe air is sweet with pine and spice,\nA warmth that melts the coldest ice.\nEach twinkling light, a hope reborn,\nA wish upon this Christmas morn.\n\nThe hearth hums low, the candles gleam,\nA tapestry of joy and dream.\nThrough frosted panes, the moonlight spills,\nAnd wraps the earth in silver hills.\n\nMay love's pure fire forever glow,\nMay kindness bloom through falling snow.\nFor in this season, hearts take flight,\nMerry Christmas, and to all—goodnight.`,
+
+            `Beneath the sky of silver light,\nThe world transforms on Christmas night.\nA gentle snow, a whispering breeze,\nWraps earth in dreams and quiet seas.\n\nThe chiming bells, a song so clear,\nBring warmth to hearts both far and near.\nTheir melodies through silence flow,\nA symphony of love’s soft glow.\n\nThe stars above in heaven gleam,\nAs time suspends in yuletide dream.\nEach twinkling flame, a tender spark,\nTo guide us through the winter’s dark.\n\nMay peace and joy like rivers run,\nMay hope arise with every sun.\nFor Christmas brings a light so true—\nA gift of love from me to you.`,
+
+            `Beneath the veil of starry skies,\nThe world in peaceful slumber lies.\nSoft whispers float on frosty air,\nAs winter's breath enchants the fair.\n\nThe snowflakes dance, a fleeting song,\nA quiet melody, soft and strong.\nEach step they take upon the earth,\nA silent prayer, a gift of mirth.\n\nThe lanterns glow with amber light,\nA beacon through the silent night.\nTheir flicker speaks of hope and cheer,\nA promise that the dawn is near.\n\nThe fireside hums with warmth and grace,\nIts light a kiss upon your face.\nThe scent of pine and cinnamon,\nWeaves memories of Christmas gone.\n\nMay love surround you, soft and bright,\nLike starlight shining through the night.\nAnd may this Christmas, pure and true,\nBring joy and peace, from me to you.`,
+
+            `Beneath the sky of winter's glow,\nThe world is wrapped in softest snow.\nThe stars above in silence gleam,\nA distant hymn, a whispered dream.\n\nThe trees, like shadows, softly sway,\nTheir branches dressed in frost's array.\nEach flake that falls is heaven's art,\nA frozen kiss, a beating heart.\n\nThe hearth is warm with crackling light,\nIts amber glow, a tender sight.\nThe scent of pine and cedar sweet,\nA melody beneath our feet.\n\nThe bells resound with joyful sound,\nTheir echoes swirling all around.\nA lullaby that fills the air,\nA song of love beyond compare.\n\nMay peace descend like falling snow,\nAnd all your dreams in silence grow.\nFor Christmas brings a sacred song—\nA gift of joy to all along.\n\nMerry Christmas, from heart to heart,\nA time for love to light the dark.`,
+
+            `In quiet hours, the world stands still,\nAs snowflakes fall, the night grows chill.\nThe moonlight paints a silver hue,\nWhile starlight whispers soft and true.\n\nThe trees are dressed in crystal lace,\nTheir branches swaying with gentle grace.\nEach flake that tumbles from the sky,\nA fleeting wish, a silent sigh.\n\nThe warmth of fireside glow surrounds,\nA tender light that softly bounds.\nThe scent of pine and cinnamon,\nA gift of love, of joy begun.\n\nThe carols echo through the night,\nTheir voices soaring, soft and bright.\nA symphony of joy and cheer,\nA melody that draws us near.\n\nMay peace and love within you grow,\nLike winter's glow, soft and slow.\nFor Christmas brings a magic true—\nA gift of grace, from me to you.`,
+
+            `Upon this eve, the stars ignite,\nA blanket of the softest light.\nThe world below, in quiet rest,\nIs kissed by snowflakes, heaven-blessed.\n\nThe trees, like guardians, stand tall,\nTheir branches draped in crystal thrall.\nEach flake that falls, a story told,\nA whisper warm, a touch of gold.\n\nThe hearth is burning, soft and bright,\nA beacon through the silent night.\nThe scent of pine, the taste of cheer,\nThe magic of this time is near.\n\nMay love surround you, pure and true,\nMay peace and joy in all you do.\nFor Christmas brings, with gentle grace,\nA gift of light, a sweet embrace.`
+        ];
+
+        // 已显示过的诗句索引
+        let displayedPoems = [];
+
+        // 获取随机诗句
+        function getRandomPoem() {
+            if (displayedPoems.length === poems.length) {
+                // 如果所有诗句都已经展示过，清空已显示列表并重新开始
+                displayedPoems = [];
+            }
+
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * poems.length);
+            } while (displayedPoems.includes(randomIndex));
+
+            // 记录显示的诗句索引
+            displayedPoems.push(randomIndex);
+            return poems[randomIndex];
+        }
+
+        // 初始化显示诗句
+        function displayPoem() {
+            document.getElementById('poem').textContent = getRandomPoem();
+        }
+
+        // 点击“再来一首”按钮时刷新诗句
+        document.getElementById('newPoemBtn').addEventListener('click', displayPoem);
+
+        // 页面加载时显示一首诗句
+        displayPoem();
+    </script>
+</body>
+</html>
